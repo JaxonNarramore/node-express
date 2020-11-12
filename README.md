@@ -1,7 +1,9 @@
 # node-express
 
 ## Creating a package
+```text
 npm init (more specific) or npm init -y (for basic settings)
+```
 
 ## Opening in terminal
 ```text
