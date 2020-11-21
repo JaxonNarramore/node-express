@@ -1,5 +1,3 @@
-# node-express
-
 # Node
 
 ## Creating a package
@@ -209,4 +207,111 @@ in the .ejs file
     <h2>You are <%= age*7 %> in dog years.</h2>
   </body>
 </html>
+```
+
+# Sequelize
+
+## Installing Sequelize and Postgres
+```text
+npm install sequelize
+```
+
+```text
+npm install pg
+```
+## Initalizing Sequelize
+```text
+sequelize init
+```
+
+## Creating a database
+```text
+sequelize db:create
+```
+
+## Creating a model
+```text
+sequelize model:create --name user --attributes firstName:string,lastName:string,age:integer,email:string
+```
+
+## Migrate database
+```text
+sequelize db:migrate
+```
+
+## To undo a migration (if you need to update parts of database)
+```text
+sequelize db:migrate:undo
+```
+
+# PSQL
+
+## To connect to the database
+```text
+\c name_devolpment
+```
+
+# CRUD
+
+## Create
+```js
+db.user.create({
+    firstName: 'Haley',
+    lastName: 'Narramore',
+    age: 21
+}).then(createdUser => {
+    console.log(createdUser.get());
+});
+```
+
+## Read
+```js
+db.user.findOne({
+    where: { firstName: 'Haley' }
+}).then(foundUser => {
+    console.log(foundUser.get());
+});
+
+// Find all users
+
+db.user.findAll().then(allUsers => {
+    console.log(allUsers);
+    console.log(allUsers[0].get());
+});
+```
+
+## Update
+```js
+db.user.update({
+    lastName: 'Smith'
+}, {
+    where: { firstName: 'Haley' }
+}).then(numRowsChanged => {
+    console.log(numRowsChanged);
+});
+```
+
+## Destory
+```js
+db.user.destroy({
+    where: { lastName: 'Smith' }
+}).then(numRowsDeleted => {
+    console.log(numRowsDeleted);
+});
+```
+
+## Using findOrCreate
+```js
+db.movie.findOrCreate({
+    where: { title: 'Godfather'},
+    defaults: {
+        byline: 'Vincent Canby',
+        headline: 'Godfather, Part II',
+        date: Date.now(),
+        url: 'http://nytimes.com'
+    }
+}).then(([movie, created]) => {
+    console.log(true)
+    console.log(movie);
+})
 ```
